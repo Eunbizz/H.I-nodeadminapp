@@ -16,7 +16,11 @@ var session = require('express-session');
 var channelRouter = require('./routes/channel');
 var messageRouter = require('./routes/message');
 
+var sequelize = require('./models/index.js').sequelize;
+
 var app = express();
+
+sequelize.sync();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

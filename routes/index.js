@@ -40,7 +40,8 @@ router.post('/login', async(req, res)=>{
     }
 
     if(resultMsg !=='') {
-        res.render('/login', {resultMsg, id, password})
+        res.render('login', {resultMsg, id, password, layout:"loginLayout"})
+        // res.redirect('/login');
     }
 });
 

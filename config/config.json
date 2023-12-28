@@ -1,13 +1,8 @@
 {
   "development": {
     "username": "root",
-<<<<<<< HEAD
     "password": "11qqaa..",
     "database": "modu_chat_team",
-=======
-    "password": "",
-    "database": "modu_chat2",
->>>>>>> 7c3de80b17e4adfafa7516dab6119a838d224575
     "host": "127.0.0.1",
     "dialect": "mysql"
   },

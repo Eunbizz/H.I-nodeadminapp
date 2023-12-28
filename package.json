@@ -14,7 +14,7 @@
     "express": "~4.16.1",
     "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.17.3",
-    "http-errors": "~1.6.3",
+    "http-errors": "^2.0.0",
     "morgan": "~1.9.1",
     "popper.js": "^1.16.1",
     "toastr": "^2.1.4"

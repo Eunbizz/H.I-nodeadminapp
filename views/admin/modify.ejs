@@ -1,20 +1,75 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Modify Admin</title>
-    <link rel="stylesheet" href="/styles/admin.css" />
-</head>
-<body>
-    <div class="container">
-        <h1>Modify Admin</h1>
-        <form action="/admin/modify/<%= chennel_idx %>" method="post" class="admin-form">
-            <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username">
-            </div>
-            <input type="submit" value="Update Admin" class="button">
-        </form>
-        <a href="/admin/list" class="button">Back to List</a>
+    <!--우측 상단 헤더 영역 -->
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>관리자계정 수정</h2>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="/">홈</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a>관리자계정</a>
+                </li>
+                <li class="breadcrumb-item active">
+                    <strong>수정</strong>
+                </li>
+            </ol>
+        </div>
     </div>
-</body>
-</html>
+    <!--우측 콘텐츠 영역 -->
+    <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="tabs-container">
+                        <ul class="nav nav-tabs">
+                            <li><a class="nav-link active" data-toggle="tab">관리자계정 수정</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="tab-1" class="tab-pane active">
+                                <div class="panel-body">
+
+                                    <form action="/admin/modify/1" method="post">
+                                        <div class="form-group row"><label class="col-sm-2 col-form-label">관리자명</label>
+                                            <div class="col-sm-10"><input type="text" class="form-control" name="name"></div>
+                                        </div>
+                                        <div class="form-group row"><label class="col-sm-2 col-form-label">이메일</label>
+                                            <div class="col-sm-10"><input type="email" class="form-control" name="email"></div>
+                                        </div>
+                                        <div class="form-group row"><label class="col-sm-2 col-form-label">전화번호</label>
+                                            <div class="col-sm-10"><input type="tel" class="form-control" name="telephone"></div>
+                                        </div>
+                                        <div class="form-group row"><label class="col-sm-2 col-form-label">주소</label>
+                                            <div class="col-sm-10"><input type="text" class="form-control" name="address"></div>
+                                        </div>
+                                        <div class="form-group row"><label class="col-sm-2 col-form-label">등록일시</label>
+                                            <div class="col-sm-10"><input type="text" class="form-control" name="reg_date"></div>
+                                        </div>
+                                        <input type="submit" class="btn-white btn btn-xs" value="수정">
+                                        <a href="/admin/list"><button class="btn-white btn btn-xs">게시글 목록 이동</button></a>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        $(document).ready(function(){
+
+            $('.summernote').summernote();
+
+            $('.input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true
+            });
+
+        });
+    </script>
+

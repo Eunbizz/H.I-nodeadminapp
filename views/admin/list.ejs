@@ -1,97 +1,108 @@
 
-<!--우측 상단 헤더 영역 -->
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-10">
-        <h2>관리자계정 관리</h2>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="/">홈</a>
-            </li>
-            <li class="breadcrumb-item">
-                <a>관리자계정 관리</a>
-            </li>
-            <li class="breadcrumb-item active">
-                <strong>조회</strong>
-            </li>
-        </ol>
-    </div>
-</div>
-<!--우측 콘텐츠 영역 -->
-<div class="wrapper wrapper-content animated fadeInRight ecommerce">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="ibox">
-                <div class="ibox-content">
-                    <a href="/admin/create" style="display: flex; justify-content: flex-end; margin-bottom: 1rem;"><button class="btn-white btn btn-xs">관리자 신규등록</button></a>
-                    <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
-                        <thead>
-                            <tr>
-                                <th>Order ID</th>
-                                <th data-hide="phone" name="name">관리자명</th>
-                                <th data-hide="phone" name="email">이메일</th>
-                                <th data-hide="phone" name="telephone">전화번호</th>
-                                <th data-hide="phone,tablet" name="address">주소</th>
-                                <th data-hide="phone" name="reg_date">등록일시</th>
-                                <th class="text-center">설정</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    이보람
-                                </td>
-                                <td>
-                                    aaa@naver.com
-                                </td>
-                                <td>
-                                    010-2256-5222
-                                </td>
-                                <td>
-                                    인천시 부평구
-                                </td>
-                                <td>
-                                    2023-12-19
-                                </td>
-                                <td class="text-center">
-                                    <div class="btn-group">
-                                        <a href="/admin/modify/1"><button class="btn-white btn btn-xs">수정</button></a>
-                                        <a href="/admin/delete"><button class="btn-white btn btn-xs">삭제</button></a>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                        <tr>
-                            <td colspan="7">
-                                <ul class="pagination float-right"></ul>
-                            </td>
-                        </tr>
-                        </tfoot>
-                    </table>
+            <!--우측 상단 헤더 영역 -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>관리자 정보 관리</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="/">Home ></a>
+                        </li>
+                        <li>
+                            <a>관리자 정보 관리 ></a>
+                        </li>
+                        <li class="active">
+                            <strong>조회</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-<script>
-    $(document).ready(function() {
-        $('.footable').footable();
-        $('#date_added').datepicker({
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            calendarWeeks: true,
-            autoclose: true
-        });
-        $('#date_modified').datepicker({
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            calendarWeeks: true,
-            autoclose: true
-        });
-    });
-</script>
 
-</script>
+            <!--우측 콘텐츠 영역 -->
+            <div class="wrapper wrapper-content">
+                
+                <!-- 사용자 정보 조회 옵션 및 조회 영역 -->
+                <form action="/admin/list" method="post">
+                    <div class="ibox-content m-b-sm border-bottom">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="OrderNo">메일주소</label>
+                                    <input type="text" name="email" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="OrderName">이름</label>
+                                    <input type="text" name="adminName" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="MobileNo">전화번호</label>
+                                    <input type="text" name="telephone" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">조회</button>
+                            <a href="/admin/create" class="btn btn-info">신규</a>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- 사용자 정보 조회 결과 목록 -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <div class="table-responsive">
+
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th width="10%">순번</th>
+                                                <th width="10%">메일주소</th>
+                                                <th width="20%">이름</th>
+                                                <th width="20%">전화번호</th>
+                                                <th width="10%">부서명</th>
+                                                <th width="10%">사용상태</th>
+                                                <th width="20%">등록일</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="hoverTblBody">
+                                            <% for(var i =0;i<admin.length;i++){ %>
+                                                <tr>
+                                                    <td><a href="/admin/modify/<%=admin[i].admin_member_id%>"><%=admin[i].admin_member_id%></a></td>
+                                                    <td><%=admin[i].email%></td>
+                                                    <td><%=admin[i].admin_name%></td>
+                                                    <td><%=admin[i].telephone%></td>
+                                                    <td><%=admin[i].dept_name%></td>
+                                                    <td>
+                                                        <% if(admin[i].used_yn_code == 1){%>
+                                                            접속중
+                                                        <% } else{ %>
+                                                            아웃
+                                                        <% }%>
+                                                    </td>
+                                                    <td><%=admin[i].reg_date%></td>
+                                                </tr>
+                                           <% } %>
+                                            
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+    </script>
+    
+    </script>

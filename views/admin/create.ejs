@@ -4,50 +4,61 @@
                 <h2>관리자계정 신규등록</h2>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
+                        <a href="/">홈</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>관리자계정</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <strong>신규등록</strong>
                     </li>
                 </ol>
             </div>
         </div>
+
+        <!--우측 콘텐츠 영역 -->
         <div class="wrapper wrapper-content animated fadeInRight ecommerce">
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="tabs-container">
-                            <ul class="nav nav-tabs">
-                                <li><a class="nav-link active" data-toggle="tab">관리자계정 신규등록</a></li>
-                            </ul>
-                            <div class="tab-content">
-                                <div id="tab-1" class="tab-pane active">
-                                    <div class="panel-body">
-
-                                        <form action="/admin/create/" method="post">
-                                            <div class="form-group row"><label class="col-sm-2 col-form-label">관리자명</label>
-                                                <div class="col-sm-10"><input type="text" class="form-control" name="name"></div>
-                                            </div>
-                                            <div class="form-group row"><label class="col-sm-2 col-form-label">이메일</label>
-                                                <div class="col-sm-10"><input type="email" class="form-control" name="email"></div>
-                                            </div>
-                                            <div class="form-group row"><label class="col-sm-2 col-form-label">전화번호</label>
-                                                <div class="col-sm-10"><input type="tel" class="form-control" name="telephone"></div>
-                                            </div>
-                                            <div class="form-group row"><label class="col-sm-2 col-form-label">주소</label>
-                                                <div class="col-sm-10"><input type="text" class="form-control" name="address"></div>
-                                            </div>
-                                            <div class="form-group row"><label class="col-sm-2 col-form-label">등록일시</label>
-                                                <div class="col-sm-10"><input type="text" class="form-control" name="reg_date"></div>
-                                            </div>
-                                            <input type="submit" class="btn-white btn btn-xs" value="등록">
-                                            <a href="/admin/list"><button class="btn-white btn btn-xs">게시글 목록 이동</button></a>
-                                        </form>
-
-                                    </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label">소속회사코드</label>
+                                    <input type="text" name="companyCode" class="form-control">
                                 </div>
                             </div>
-                    </div>
-                </div>
-            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label">부서명</label>
+                                    <input type="text" name="deptName" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label">관리자이름</label>
+                                    <input type="text" name="adminName" class="form-control">
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label">관리자메일주소</label>
+                                    <input type="text" name="email" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label">관리자비밀번호</label>
+                                    <input type="password" name="adminPassword" class="form-control">
+                                </div>
+                            </div>
 
         </div>
+
 
 <!-- Mainly scripts -->
 <script src="js/jquery-3.1.1.min.js"></script>

@@ -10,6 +10,7 @@ var articlesRouter = require('./routes/articles');
 var channelRouter = require('./routes/channel');
 var memberRouter = require('./routes/member');
 var messageRouter = require('./routes/message');
+var adminRouter = require('./routes/admin');
 var session = require('express-session');
 
 var app = express();

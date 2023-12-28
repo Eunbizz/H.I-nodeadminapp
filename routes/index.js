@@ -57,7 +57,7 @@ router.get('/register', async(req, res)=>{
     res.render('login/register', {layout:"loginLayout"});
 });
 
-router.get('/register', async(req, res)=>{
+router.post('/register', async(req, res)=>{
     res.redirect('/login');
 });
 

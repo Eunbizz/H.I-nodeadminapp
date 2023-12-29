@@ -46,12 +46,38 @@ router.post('/login', async(req, res)=>{
 });
 
 router.get('/forgot_password', async(req, res)=>{
-    res.render('login/forgot_password', {layout:"loginLayout"});
+    res.render('login/forgot_password', {resultMsg:"", email:"", layout:"loginLayout"});
 });
 
-router.post('/forgot_password', async(req, res)=>{
-    res.redirect('/login');
+router.post('/forgot_password', async (req, res) => {
+    try {
+        var Email = req.body.email;
+
+        // DB admin 테이블에서 동일한 메일주소의 단일사용자 정보를 조회한다.
+        var email = await db.Admin.findOne({ where: { email: Email } });
+
+        var resultMsg = '';
+
+        if (email == null) {
+            resultMsg = '등록되지 않은 이메일 입니다.';
+        } else {
+            // db의 email의 email과 == 내가 입력한 email이 같으면
+            if (email.email == Email) {
+
+                console.log(`메일찾기 완료 :${Email} 입니다.`);
+                resultMsg = '메일찾기 완료'
+            }
+        }
+
+        if (resultMsg !== '') {
+            res.render('login', { resultMsg, email, layout: "loginLayout" })
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
 });
+
 
 router.get('/register', async(req, res)=>{
     res.render('login/register', {layout:"loginLayout"});

@@ -31,20 +31,20 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label">소속회사코드</label>
-                                    <input type="text" name="companyCode" class="form-control">
+                                    <input type="text" name="companyCode" class="form-control" value="<%=admin.company_code%>">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label">부서명</label>
-                                    <input type="text" name="deptName" class="form-control">
+                                    <input type="text" name="deptName" class="form-control" value="<%=admin.dept_name%>">
                                 </div>
                             </div>
 
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label">관리자이름</label>
-                                    <input type="text" name="adminName" class="form-control">
+                                    <input type="text" name="adminName" class="form-control" value="<%=admin.admin_name%>">
                                 </div>
                             </div>
 
@@ -55,20 +55,20 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label">관리자메일주소</label>
-                                    <input type="text" name="email" class="form-control">
+                                    <input type="text" name="email" class="form-control" value="<%=admin.email%>">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label">관리자비밀번호</label>
-                                    <input type="password" name="adminPassword" class="form-control">
+                                    <input type="password" name="adminPassword" class="form-control" value="<%=admin.admin_password%>">
                                 </div>
                             </div>
 
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label">관리자전화번호</label>
-                                    <input type="telephone" name="telephone" class="form-control">
+                                    <input type="telephone" name="telephone" class="form-control" value="<%=admin.telephone%>">
                                     </select>
                                 </div>
                             </div>
@@ -78,6 +78,8 @@
 
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">수정</button>
+                            <!-- btn-danger: 빨간색 버튼 -->
+                            <button type="button" id="btnDelete" class="btn btn-danger">삭제</button>
                             <a href="/admin/list" class="btn btn-info">목록</a>
                         </div>
 

@@ -23,7 +23,7 @@ db.Sequelize = Sequelize; //Sequelize팩키지에서 제공하는 각종 데이�
 // db.Article = require('./article.js')(sequelize,Sequelize);
 // db.Member = require('./member.js')(sequelize,Sequelize);
 db.Admin = require('./admin.js')(sequelize,Sequelize);
-// db.Channel = require('./channel.js')(sequelize,Sequelize);
+db.Channel = require('./channel.js')(sequelize,Sequelize);
 db.ChannelMessage = require('./channelMessage.js')(sequelize,Sequelize);
 db.articles = require('./articles.js')(sequelize,Sequelize);
 

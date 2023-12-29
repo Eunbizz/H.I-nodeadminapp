@@ -1,5 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
+var sequelize = require('./models/index.js').sequelize;
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -8,7 +9,7 @@ var expressLayouts = require('express-ejs-layouts');
 var indexRouter = require('./routes/index');
 var articlesRouter = require('./routes/articles');
 var channelRouter = require('./routes/channel');
-var memberRouter = require('./routes/member');
+var membersRouter = require('./routes/members');
 var messageRouter = require('./routes/message');
 var adminRouter = require('./routes/admin');
 var session = require('express-session');
@@ -16,7 +17,6 @@ var session = require('express-session');
 var channelRouter = require('./routes/channel');
 var messageRouter = require('./routes/message');
 
-var sequelize = require('./models/index.js').sequelize;
 
 var app = express();
 
@@ -41,7 +41,7 @@ app.use(express.static(__dirname + '/views/src/assets'));
 app.use('/', indexRouter);
 app.use('/articles', articlesRouter);
 app.use('/channel', channelRouter);
-app.use('/member', memberRouter);
+app.use('/members', membersRouter);
 app.use('/message', messageRouter);
 app.use('/admin', adminRouter);
 

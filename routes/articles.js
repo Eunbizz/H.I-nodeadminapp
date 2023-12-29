@@ -2,7 +2,6 @@
 // http://localhost:3001/articles
 var express = require('express');
 var router = express.Router();
-const path = require('path');
 var db = require('../models/index.js');
 var Op = db.Sequelize.Op;
 
@@ -41,7 +40,6 @@ router.post('/list', async(req, res)=>{
         console.error("Error reading the file:", err);
         res.status(500).send("Error reading the user data.");
     }
-
 });
 
 router.get('/create',async(req,res)=>{

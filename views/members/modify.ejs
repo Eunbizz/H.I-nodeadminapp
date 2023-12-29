@@ -22,105 +22,98 @@
             </div>
 
             <!--우측 콘텐츠 영역 -->
-            <form action="/member/create" method="post">
+            <form action="/members/modify/<%=member.member_id%>" method="post">
                 <div class="wrapper wrapper-content">
                     <div class="ibox-content m-b-sm border-bottom">
-
-
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label">메일주소</label>
-                                    <input type="text" name="email" class="form-control">
+                                    <input type="text" name="email_address" class="form-control" value="<%=member.email_address%>">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label">비밀번호</label>
-                                    <input type="password" name="password" class="form-control">
+                                    <input type="password" name="password" class="form-control" value="<%=member.password%>">
                                 </div>
                             </div>
-
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label">이름</label>
-                                    <input type="text" name="name" class="form-control">
+                                    <input type="text" name="name" class="form-control" value="<%=member.name%>">
                                 </div>
                             </div>
-
                         </div>
-
-
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label">사진 업로드</label>
-                                    <input type="file" name="file" class="form-control">
+                                    <input type="file" name="profile_image_path" class="form-control" value="<%=member.profile_file_path%>">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label">전화번호</label>
-                                    <input type="text" name="telephone" class="form-control">
+                                    <input type="text" name="phone_number" class="form-control" value="<%=member.phone_number%>">
                                 </div>
                             </div>
-
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label">생년월일</label>
-                                    <input type="text" name="birthday" class="form-control">
+                                    <input type="text" name="birth_date" class="form-control" value="<%=member.birth_date%>">
                                 </div>
                             </div>
-
                         </div>
-
-
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label">회원가입유형</label>
-                                    <select name="entryTypeCode" class="form-control">
+                                    <select name="register_method_code" class="form-control" value="<%=member.register_method_code%>">
                                         <option value="0">직접가입</option>
-                                        <option value="1">SNS-Facebook</option>
-                                        <option value="2">SNS-Google</option>
+                                        <option value="1">Facebook</option>
+                                        <option value="2">Google</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label">가입상태정보</label>
-                                    <select name="entryStateCode" class="form-control">
-                                        <option value="0">일시중지</option>
-                                        <option value="1">사용중</option>
-                                        <option value="2">탈퇴상태</option>
+                                    <select name="use_state_code" class="form-control" value="<%=member.use_state_code%>">
+                                        <option value="0">탈퇴</option>
+                                        <option value="1">사용</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label class="control-label">가입일시</label>
-                                    <input type="text" class="form-control" value="2022-12-19" readonly>
+                                    <label class="control-label">수정일시</label>
+                                    <input type="text" name="edit_date" class="form-control" value="<%= new Date().toLocaleDateString() %>">
                                 </div>
                             </div>
-
                         </div>
                         
 
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary">저장</button>
-                            <a href="/member/list" class="btn btn-info">목록</a>
+                            <button type="submit" class="btn btn-primary">수정</button>
+                            <button type="button" id="btnDelete" class="btn btn-danger">삭제</button>
+                            <a href="/members/list" class="btn btn-info">목록</a>
                         </div>
 
                     </div>
                 </div>
             </form>
-
-
     <script>
 
+        $("#btnDelete").click(function(){
+            if(confirm("정말로 삭제하시겠습니까?")){
+                location.href="/members/delete/<%=member.member_id%>";
+            }
+            else{
+                alert("삭제를 취소했습니다.");
+            }
+        });
     </script>
-
 </body>
-
 </html>

@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var expressLayouts = require('express-ejs-layouts');
 
+var sequelize = require('./models/index.js').sequelize;
+
 var indexRouter = require('./routes/index');
 var articlesRouter = require('./routes/articles');
 var channelRouter = require('./routes/channel');
@@ -12,11 +14,6 @@ var memberRouter = require('./routes/member');
 var messageRouter = require('./routes/message');
 var adminRouter = require('./routes/admin');
 var session = require('express-session');
-
-var channelRouter = require('./routes/channel');
-var messageRouter = require('./routes/message');
-
-var sequelize = require('./models/index.js').sequelize;
 
 var app = express();
 
@@ -26,6 +23,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.set('layout', 'layout');
+// app.set('layout', 'loginLayout');
+
 app.set("layout extractScripts", true); 
 app.set("layout extractStyles", true); 
 app.set("layout extractMetas", true); 

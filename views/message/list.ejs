@@ -72,28 +72,34 @@
                 <table class="table table-hover table-mail">
                     <thead>
                         <tr style="text-align: center;">
-                            <th></th>
-                            <th>번호</th>
-                            <th>채팅방명</th>
+                            <th>순번</th>
+                            <th>메시지타입</th>
+                            <th>채널정보</th>
                             <th>작성자</th>
-                            <th>작성일자</th>
+                            <th>메시지내용</th>
+                            <th>IP주소</th>
+                            <th>등록일시</th>
                             <th>설정</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <% for(var i=0; i < channelMsgOption.length; i++) { %>
                         <tr class="unread" style="text-align: center;">
                             <td class="check-mail">
                                 <input type="checkbox" class="i-checks">
                             </td>
-                            <td>1</td>
-                            <td>홍길동방</a></td>
-                            <td>홍길동</td>
-                            <td>2023-12-19</td>
+                            <td><%=channelMsgOption[i].msg_type_code%></td>
+                            <td><%=channelMsgOption[i].channel_id%></td>
+                            <td><%=channelMsgOption[i].connection_id%></td>
+                            <td><%=channelMsgOption[i].message%></td>
+                            <td><%=channelMsgOption[i].ip_address%></td>
+                            <td><%=channelMsgOption[i].msg_date%></td>
                             <td>
                                 <a href="/message/modify"><button class="btn-white btn btn-xs">수정</a>
                                 <a href="/message/delete"><button class="btn-white btn btn-xs">삭제</a>
                             </td>
                         </tr>
+                        <% } %>
                     </tbody>
                 </table>
 

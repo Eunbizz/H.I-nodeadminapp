@@ -70,7 +70,7 @@ router.post('/forgot_password', async (req, res) => {
         }
 
         if (resultMsg !== '') {
-            res.render('login', { resultMsg, email, layout: "loginLayout" })
+            res.render('login/forgot_password', { resultMsg, email, layout: "loginLayout" })
         }
     } catch (error) {
         console.error(error);

@@ -7,29 +7,16 @@ var db = require('../models/index.js');
 const Op = db.sequelize.Op;
 
 
+// 리스트 
 router.get('/list', async(req, res) => {
 
-    var channelMsgOption = {
-        channel_msg_id: "1",
-        channel_id: "1",
-        member_id:"",
-        nick_name:"",
-        msg_type_code:"0",
-        connection_id:"",
-        message:"",
-        ip_address:"",
-        msg_date:Date.now(),
-        del_date:""
-    }
-
     try {
-        var msgs = await db.ChannelMessage.findAll(
+        var ChannelMessage = await db.ChannelMessage.findAll(
             {
-                msg: ['channel_msg_id','channel_id','member_id','nick_name','msg_type_code','connection_id','message','ip_address','msg_date','del_date'],
-                order: [['channel_id', 'DESC']]
+                order: [['channel_msg_id', 'ASC']]
             }
         );
-        res.render('message/list', {msgs, channelMsgOption});
+        res.render('message/list', {ChannelMessage});
     }catch(err) {
         console.error("Error reading the file:", err);
         res.status(500).send("Error reading the user data.");
@@ -38,45 +25,74 @@ router.get('/list', async(req, res) => {
 
 
 router.get('/create', async(req, res) => {
-    res.render('message/create');
+    res.render('message/create', { value: '4' });
 });
 
-
-
+// 채널 메시지 생성
 router.post('/create', async(req, res) => {
   // 생성 처리 로직
-    const {contents, register} = req.body;
+    const {msg_type_code, msg_state_code, nick_name, message, ip_address, msg_date} = req.body;
 
     var createMsg = {
-        channel_msg_id:1,
+        msg_type_code: msg_type_code,
+        msg_state_code:msg_state_code,
         channel_id:1,
         member_id:1,
-        msg_type_code: 3,
-        connection_id: register,
-        message: contents,
-        ip_address:"192.168.0.1",
+        connection_id: "robin",
+        message: message,
+        ip_address:ip_address,
         msg_date: Date.now(),
-        nick_name: register,
+        nick_name: nick_name,
     }
 
     await db.ChannelMessage.create(createMsg);
-    res.redirect('/message/list', createMsg);
+    res.render('message/list', {createMsg});
 });
 
+// 아직 삭제 미구현
+// 구현하기
 router.get('/delete', async(req, res) => {
     // 삭제 처리 로직
     res.redirect('/message/list');
 });
 
 
-router.get('/modify/:idx', async(req, res) => {
-    res.render('message/modify');
+// 수정 불러오기
+router.get('/modify/:id', async(req, res) => {
+    var channel_msg_id = req.params.id;
+
+    var ChannelMessage = await db.ChannelMessage.findOne({where:{channel_msg_id}})
+    
+    res.render('message/modify', {ChannelMessage});
 });
 
 
-router.post('/modify:idx', async(req, res) => {
-  // 수정 처리 로직
-    res.redirect('/message/list');
+router.post('/modify/:id', async(req, res) => {
+
+    var channel_msg_id = req.params.id;
+
+    const {msg_type_code, msg_state_code, nick_name, message, ip_address, msg_date} = req.body;
+
+    var channelMsg = {
+        channel_id:1,
+        msg_type_code,
+        msg_state_code,
+        nick_name,
+        message,
+        ip_address,
+        msg_date,
+        connection_id:"robin",
+    };
+
+    try {
+        await db.ChannelMessage.update(channelMsg, {where:{channel_msg_id}});
+        res.redirect('/message/list/');
+
+    } catch(err) {
+        console.error("Error reading the file:", err);
+        res.status(500).send("Error reading the user data.");
+    }
+
 });
 
 

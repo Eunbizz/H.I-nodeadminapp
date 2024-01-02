@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
                 primaryKey: true,
                 autoIncrement: true,
                 allowNull: false,
-                comment: '로깅고유번호',
+                comment: '채널 메시지 고유번호',
             },
             channel_id: {
                 type: DataTypes.INTEGER,
@@ -18,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
             member_id: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
-                comment: '사용자고유번호',
+                comment: '회원 고유번호',
             },
             nick_name: {
                 type: DataTypes.STRING(100),
@@ -28,12 +28,12 @@ module.exports = function(sequelize, DataTypes) {
             msg_type_code: {
                 type: DataTypes.TINYINT,
                 allowNull: false,
-                comment: '로깅유형코드 1:입장, 0:퇴장, 3:일반메시지, 4:파일메시지',
+                comment: '메시지 유형코드 3:일반메시지, 4:파일메시지',
             },
             connection_id: {
                 type: DataTypes.STRING(100),
                 allowNull: false,
-                comment: '채팅고유커넥션아이디',
+                comment: '접속 ID',
             },
             message: {
                 type: DataTypes.STRING(1000),
@@ -42,7 +42,7 @@ module.exports = function(sequelize, DataTypes) {
             },
             ip_address: {
                 type: DataTypes.STRING(20),
-                allowNull: false,
+                allowNull: true,
                 comment: 'IP주소',
             },
             top_channel_msg_id: {
@@ -53,7 +53,7 @@ module.exports = function(sequelize, DataTypes) {
             msg_state_code: {
                 type: DataTypes.INTEGER,
                 allowNull: true,
-                comment: '메시지 상태코드',
+                comment: '메시지 상태코드 1:입장, 0:퇴장',
             },
             msg_date: {
                 type: DataTypes.DATE,
@@ -76,7 +76,19 @@ module.exports = function(sequelize, DataTypes) {
             tableName: 'channel_msg',
             comment: '채널채팅이력정보',
             timestamps: false,   // 등록일시(createAT), 수정일시(updateAT) 컬럼 자동생성
-            paranoid: true      // 데이터 삭제 컬럼 자동생성(deletedAT) 및 물리적 데이터 삭제안함 기능제공
+            indexes: [
+				{
+					name: "PRIMARY",
+					unique: true,
+					using: "BTREE",
+					fields: [{ name: "channel_msg_id" }],
+				},
+				{
+					name: "FK_channel_id",
+					using: "BTREE",
+					fields: [{ name: "channel_id" }],
+				},
+			],
         }
     );
 };

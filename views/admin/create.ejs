@@ -17,7 +17,11 @@
         </div>
 
         <!--우측 콘텐츠 영역 -->
-        <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+        <form action="/channel/create" id='articleForm' method="post">
+            <div class="wrapper wrapper-content">
+                <div class="ibox-content m-b-sm border-bottom">
+        <!--우측 콘텐츠 영역 -->
+        <!-- <div class="wrapper wrapper-content animated fadeInRight ecommerce"> -->
 
                         <div class="row">
                             <div class="col-sm-4">
@@ -57,43 +61,14 @@
                                 </div>
                             </div>
 
+
         </div>
-
-
-<!-- Mainly scripts -->
-<script src="js/jquery-3.1.1.min.js"></script>
-<script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.js"></script>
-<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
-<!-- Custom and plugin javascript -->
-<script src="js/inspinia.js"></script>
-<script src="js/plugins/pace/pace.min.js"></script>
-
-<!-- SUMMERNOTE -->
-<script src="js/plugins/summernote/summernote-bs4.js"></script>
-
-<!-- Data picker -->
-<script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
-
-<script>
-    $(document).ready(function(){
-
-        $('.summernote').summernote();
-
-        $('.input-group.date').datepicker({
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            calendarWeeks: true,
-            autoclose: true
-        });
-
-    });
-</script>
-
-</body>
-
-</html>
+                <!-- 저장/목록 이동 버튼 -->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">저장</button>
+                    <a href="/channel/list" class="btn btn-info">목록</a>
+                </div>
+            </div>
+        </div>
+    </form>
 

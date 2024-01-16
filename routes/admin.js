@@ -119,11 +119,11 @@ router.post('/modify/:id', async(req, res)=>{
 
 // 목록페이지 이동처리
 router.get('/delete', async(req, res)=>{
-  var adminIdx = req.query.aid;
+    var adminIdx = req.query.aid;
 
   var deletedCnt = await db.Admin.destroy({where:{admin_member_id:adminIdx}});
 
-  res.redirect('/admin/list');
+  res.redirect('/admin/list', {deletedCnt});
 })
 
 

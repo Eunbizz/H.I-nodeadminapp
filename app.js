@@ -5,6 +5,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var expressLayouts = require('express-ejs-layouts');
+require('dotenv').config();
+const cors = require("cors");
+
+var sequelize = require('./models/index.js').sequelize;
 
 var indexRouter = require('./routes/index');
 var articlesRouter = require('./routes/articles');
@@ -14,18 +18,19 @@ var messageRouter = require('./routes/message');
 var adminRouter = require('./routes/admin');
 var session = require('express-session');
 
-var channelRouter = require('./routes/channel');
-var messageRouter = require('./routes/message');
-
-
 var app = express();
 
 sequelize.sync();
+
+// 모든 RESTFUL 호출에 대한 응답 허락하기 - CORS ALL 허락..
+app.use(cors());
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.set('layout', 'layout');
+// app.set('layout', 'loginLayout');
+
 app.set("layout extractScripts", true); 
 app.set("layout extractStyles", true); 
 app.set("layout extractMetas", true); 

@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('member',{
+    return sequelize.define('admin',{
         admin_member_id:{
             type:DataTypes.INTEGER,
             autoIncrement:true,

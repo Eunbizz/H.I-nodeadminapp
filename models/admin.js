@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('member',{
+    return sequelize.define('admin',{
         admin_member_id:{
             type:DataTypes.INTEGER,
             autoIncrement:true,
@@ -27,7 +27,7 @@ module.exports = function(sequelize, DataTypes) {
             allowNull:false,
             comment:'이메일'},
         telephone:{
-            type:DataTypes.STRING(20),
+            type:DataTypes.STRING(500),
             allowNull:false,
             comment:'전화번호'},
         dept_name:{

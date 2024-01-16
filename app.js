@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var expressLayouts = require('express-ejs-layouts');
+require('dotenv').config();
+const cors = require("cors");
 
 var sequelize = require('./models/index.js').sequelize;
 
@@ -18,6 +20,9 @@ var session = require('express-session');
 var app = express();
 
 sequelize.sync();
+
+// 모든 RESTFUL 호출에 대한 응답 허락하기 - CORS ALL 허락..
+app.use(cors());
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

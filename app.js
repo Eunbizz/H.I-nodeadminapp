@@ -17,9 +17,13 @@ var messageRouter = require("./routes/message");
 var adminRouter = require("./routes/admin");
 var session = require("express-session");
 
+var passport = require("passport");
+const passportConfig = require('./passport/index.js');
+
 var app = express();
 
 sequelize.sync();
+passportConfig(passport);
 
 app.use(
 	session({
@@ -36,6 +40,11 @@ app.use(
 
 // 모든 RESTFUL 호출에 대한 응답 허락하기 - CORS ALL 허락..
 app.use(cors());
+
+// 패스포트 세선 초기화
+app.use(passport.initialize());
+// 패스포트 세션을 사용
+app.use(passport.session());
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");

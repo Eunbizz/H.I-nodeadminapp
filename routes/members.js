@@ -5,8 +5,9 @@ var express = require("express");
 var router = express.Router();
 var db = require("../models/index.js");
 var Op = db.Sequelize.Op;
+const { isLoggedin, isNotLoggedin } = require('./sessionMiddleware');
 
-router.get("/list", async (req, res, next) => {
+router.get("/list", isLoggedin, async (req, res, next) => {
   searchOption = {
     email_address: "",
     name: "",

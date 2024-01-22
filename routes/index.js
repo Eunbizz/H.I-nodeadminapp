@@ -1,16 +1,16 @@
 var express = require('express');
 var router = express.Router();
+var bycrpt = require('bcryptjs');
+var AES = require('mysql-aes');
 
 // db객체 불러오기
 var db = require('../models/index.js');
 // Op객체 생성
 const Op = db.sequelize.Op;
+const { isLoggedin, isNotLoggedin } = require('./sessionMiddleware');
 
-router.get('/', function(req, res) {
-    const isLoggedIn = req.session && req.session.isLoggedIn;
-    res.render('index', { 
-    isLoggedIn: isLoggedIn 
-    });
+router.get('/', isLoggedin,  function(req, res) {
+    res.render('index');
 });
 
 
@@ -20,7 +20,6 @@ router.get('/login', async(req, res)=>{
 
 
 router.post('/login', async(req, res)=>{
-    
     try{
         // 사용자 로그인정보 추출
         var id = req.body.id; 
@@ -35,16 +34,24 @@ router.post('/login', async(req, res)=>{
             resultMsg = '관리자 정보가 등록되지 않았습니다.'
         } else {
             // 입력한 패스워드가 db패스워드와 같을 때 메인페이지로 이동
-            if(admin.admin_password == pw) {
-                res.redirect('/');
-            } else {
-                resultMsg = '암호가 일치하지 않습니다.'
+            if (await bycrpt.compare(pw, admin.admin_password)) {
+                req.session.isLogined = true;
+                req.session.loginUser = {
+                    userSeq: admin.admin_member_id,
+                    userId: admin.admin_id,
+                    userName: admin.admin_name,
+                    userPhone: AES.decrypt(admin.telephone, process.env.MYSQL_AES_KEY),
+                };
+                req.session.save(() => {
+                    res.redirect('/');
+                });
+            }else{
+                resultMsg = '패스워드가 일치하지 않습니다.'
             }
         }
 
-        if(resultMsg !=='') {
-            res.render('login', {resultMsg, id, pw, layout:"loginLayout"})
-            // res.redirect('/login');
+        if (resultMsg !== '') {
+            res.render('login', { resultMsg, id, pw, layout: "loginLayout" })
         }
     } catch(err) {
         res.status(500).send('Internal Server Error');
@@ -91,10 +98,12 @@ router.get('/register', async(req, res)=>{
 });
 
 router.post('/register', async(req, res)=>{
-
     try {
         // 회원가입 정보
-        const {admin_id, email, password, name, telephone} = req.body;
+        var {admin_id, email, password, name, telephone} = req.body;
+
+        password = await bycrpt.hash(password, 12);
+        telephone = AES.encrypt(telephone, process.env.MYSQL_AES_KEY);
 
         var admins = {
             company_code: "1",
@@ -127,7 +136,7 @@ router.post('/register', async(req, res)=>{
 });
 
 router.get('/logout', (req, res) => {
-    req.session.isLoggedIn = false; 
+    req.session.isLogined = false; 
     res.redirect('/login');
 });
 

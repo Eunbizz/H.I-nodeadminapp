@@ -30,7 +30,14 @@
 <script>  
     var result = "<%=resultMsg%>";
 
+    var loginError = "<%=loginError%>";
+
     if(result != "") {
         document.getElementById('message').innerText = result;
+    }
+
+    // 패스포트 방식으로 로그인 시 아이디 암호에 문제가 있을 경우
+    if(loginError != "") {
+        document.getElementById('message').innerText = loginError;
     }
 </script>     

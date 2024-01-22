@@ -9,8 +9,13 @@ var router = express.Router();
 var db = require('../models/index.js');
 var Op = db.Sequelize.Op;
 
+const bcrypt = require('bcryptjs');
+const AES = require('mysql-aes');
 
-router.get('/list', async (req, res, next) => {
+const { isLoggedIn, isNotLoggedIn } = require('./passportMiddleware.js');
+
+
+router.get('/list', isLoggedIn, async (req, res, next) => {
   
   var admin = await db.Admin.findAll(
     {
@@ -66,13 +71,19 @@ router.post('/create', async(req, res)=>{
   var deptName = req.body.deptName;
   var adminName = req.body.adminName;
 
+  // 관리자 암호 단방향 암호화
+  const encryptedPassword = await bcrypt.hash(adminPassword, 12);
+
+  // 관리자 전화번호 양방향 암호화
+  const encryptedTelephone = AES.encrypt(telephone, pocess.env.MYSQL_AES_KEY);
+
   var admin = {
     company_code:companyCode,
     admin_id:'eb',
-    admin_password:adminPassword,
+    admin_password:encryptedPassword,
     admin_name:adminName,
     email,
-    telephone,
+    telephone:encryptedTelephone,
     dept_name:deptName,
     used_yn_code:1,
     reg_date:'2023-12-28'

@@ -24,13 +24,13 @@
             <div class="wrapper wrapper-content">
                 
                 <!-- 사용자 정보 조회 옵션 및 조회 영역 -->
-                <form action="/member/list" method="post">
+                <form action="/members/list" method="post">
                     <div class="ibox-content m-b-sm border-bottom">
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label" for="OrderNo">메일주소</label>
-                                    <input type="text" name="email" class="form-control">
+                                    <input type="text" name="email_address" class="form-control">
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -42,13 +42,13 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label" for="MobileNo">전화번호</label>
-                                    <input type="text" name="telephone" class="form-control">
+                                    <input type="text" name="phone_number" class="form-control">
                                 </div>
                             </div>
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">조회</button>
-                            <a href="/member/create" class="btn btn-info">신규</a>
+                            <a href="/members/create" class="btn btn-info">신규</a>
                         </div>
                     </div>
                 </form>
@@ -59,7 +59,6 @@
                         <div class="ibox float-e-margins">
                             <div class="ibox-content">
                                 <div class="table-responsive">
-
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
@@ -73,17 +72,23 @@
                                             </tr>
                                         </thead>
                                         <tbody class="hoverTblBody">
-
+                                            <% for(var i =0;i<members.length;i++){ %>
                                             <tr>
-                                                <td><a href="/member/modify/<%=members.member_id%>">1</a></td>
-                                                <td>eb@gmail.com</a></td>
-                                                <td>김은비</td>
-                                                <td>01076407278</td>
-                                                <td>2000.10.20</td>
-                                                <td>이용중</td>
-                                                <td>2023-02-22</td>
+                                                <td><%=members[i].member_id%></td>
+                                                <td><%=members[i].email_address%></td>
+                                                <td><a href="/members/modify/<%=members[i].member_id%>"><%=members[i].name%></a></td>
+                                                <td><%=members[i].phone_number%></td>
+                                                <td><%=members[i].birth_date%></td>
+                                                <td>
+                                                    <% if(members[i].use_state_code == 1){%>
+                                                        사용중
+                                                    <% } else{ %>
+                                                        정지
+                                                    <% }%>
+                                                </td>
+                                                <td><%=members[i].reg_date%></td>
                                             </tr>
-
+                                            <% } %>
                                         </tbody>
                                     </table>
 

@@ -1,5 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
+var sequelize = require('./models/index.js').sequelize;
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -7,23 +8,27 @@ var expressLayouts = require('express-ejs-layouts');
 require('dotenv').config();
 const cors = require("cors");
 
-var flash = require('connect-flash');
 
-const session = require('express-session');
+// express기반 서버세션 관리 팩키지 참조하기 
+var session = require('express-session');
+
+// 패스포트 패키지 참조하기 
 const passport = require('passport');
 
-// 인증관련 패스포트 개발자 정의 모듈 참조, 로컬 로그인 전략 적용
+// 인증관련 패스포트 개발자 정의 모듈참조,로컬로그인전략적용
 const passportConfig = require('./passport/index.js');
 
 // 패스포트 설정처리
 passportConfig(passport);
+
+
 
 var sequelize = require('./models/index.js').sequelize;
 
 var indexRouter = require('./routes/index');
 var articlesRouter = require('./routes/articles');
 var channelRouter = require('./routes/channel');
-var memberRouter = require('./routes/member');
+var membersRouter = require('./routes/members');
 var messageRouter = require('./routes/message');
 var adminRouter = require('./routes/admin');
 
@@ -76,9 +81,21 @@ app.use(express.static(__dirname + '/views/src/assets'));
 app.use('/', indexRouter);
 app.use('/articles', articlesRouter);
 app.use('/channel', channelRouter);
-app.use('/member', memberRouter);
+app.use('/members', membersRouter);
 app.use('/message', messageRouter);
 app.use('/admin', adminRouter);
+
+app.use(session({
+  secret: 'lee',  
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: 'auto' }  
+}));
+
+// 패스포트-세션 초기화 : express session 뒤에 설정
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 
 

@@ -8,6 +8,21 @@ var expressLayouts = require('express-ejs-layouts');
 require('dotenv').config();
 const cors = require("cors");
 
+
+// express기반 서버세션 관리 팩키지 참조하기 
+var session = require('express-session');
+
+// 패스포트 패키지 참조하기 
+const passport = require('passport');
+
+// 인증관련 패스포트 개발자 정의 모듈참조,로컬로그인전략적용
+const passportConfig = require('./passport/index.js');
+
+// 패스포트 설정처리
+passportConfig(passport);
+
+
+
 var sequelize = require('./models/index.js').sequelize;
 
 var indexRouter = require('./routes/index');
@@ -56,6 +71,12 @@ app.use(session({
   saveUninitialized: true,
   cookie: { secure: 'auto' }  
 }));
+
+// 패스포트-세션 초기화 : express session 뒤에 설정
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 
 
 // catch 404 and forward to error handler

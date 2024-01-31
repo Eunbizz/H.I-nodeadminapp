@@ -8,12 +8,10 @@ var db = require('../models/index.js');
 // Op객체 생성
 const Op = db.sequelize.Op;
 
-<<<<<<< HEAD
-const bcrypt = require('bcryptjs');
 const AES = require('mysql-aes');
 const jwt = require('jsonwebtoken');
 
-const passport = require('passport');
+const passport = require('passport')
 
 const { isLoggedIn, isNotLoggedIn } = require('./passportMiddleware.js');
 
@@ -29,7 +27,6 @@ router.get('/', isLoggedIn, async(req, res)=>{
 
 router.get('/login', isNotLoggedIn, async(req, res)=>{
     res.render('login',{resultMsg:"", id:"", pw:"", layout:"loginLayout", loginError:req.flash('loginError')});
-=======
 
 //passport 객체 참조
 const passport = require('passport');
@@ -49,7 +46,7 @@ const {isLoggedIn,isNotLoggedIn} = require('./passportMiddleware');
 //     res.render('index', { 
 //     isLoggedIn: isLoggedIn 
 //     });
-// });
+});
 
 
 router.get('/', isLoggedIn, async(req, res, next) => {
@@ -63,7 +60,6 @@ router.get('/', isLoggedIn, async(req, res, next) => {
 
 router.get('/login',isNotLoggedIn, async(req, res)=>{
     res.render('/',{resultMsg:"", id:"", pw:"", layout:"loginLayout"});
->>>>>>> main
 });
 
 // express-session 기반
@@ -79,7 +75,6 @@ router.post('/login', async(req, res)=>{
 
 			var resultMsg = '';
 
-<<<<<<< HEAD
         if (admin == null) {
             resultMsg = '관리자 정보가 등록되지 않았습니다.'
         } else {
@@ -154,62 +149,6 @@ router.post('/passportlogin', async(req, res, next)=>{
 
 });
 
-=======
-			if (admin == null) {
-					resultMsg = '관리자 정보가 등록되지 않았습니다.'
-			} else {
-					// 입력한 패스워드가 db패스워드와 같을 때 메인페이지로 이동
-					if(admin.admin_password == pw) {
-							res.redirect('/');
-					} else {
-							resultMsg = '암호가 일치하지 않습니다.'
-					}
-			}
-
-			if(resultMsg !=='') {
-					res.render('login', {resultMsg, id, pw, layout:"loginLayout"})
-					// res.redirect('/login');
-			}
-	} catch(err) {
-			res.status(500).send('Internal Server Error');
-	}
-
-});
-
-// 패스포트 로그인시
-router.post('/passportLogin', async(req, res)=>{
-	// 패스포트 기반 인증처리 메소드 호출하기
-	passport.authenticate('local',(authError,admin,info)=> {
-		// 인증에러 발생한 경우 에러값 반환
-		if(authError) {
-			console.log(authError);
-			return next(authError);
-		}
-
-		// 만약 아이디가 틀린경우
-		if(!admin) {
-			// 리다이렉트 되는 페이지에 마지막 데이터를 던져준다
-			req.flash('loginError', info.message);
-			return res.redirect('/login');
-		}
-
-		// 정상적인 로그인이 완료된 경우 req.login(세션으로 저장할데이터);
-		return req.login(admin, (loginError)=>{
-			if(loginError) {
-				console.log(loginError);
-				return next(loginError);
-			}
-
-			// 정상적으로 세션데이터가 반영된 경우에 메인으로 이동
-			return res.redirect('/'); 
-		})
-
-	});
-	(req, res, next);
-});
-
-
->>>>>>> main
 router.get('/forgot_password', async(req, res)=>{
 	res.render('login/forgot_password', {resultMsg:"", email:"", layout:"loginLayout"});
 });
@@ -256,7 +195,6 @@ router.post('/register', async(req, res, next)=>{
 		msg: ""
 	}
 
-<<<<<<< HEAD
         // 단방향 암호화
         var bcryptedPassword = await bcrypt.hash(password, 12);
         // 양방향 암호화
@@ -280,14 +218,6 @@ router.post('/register', async(req, res, next)=>{
         
         register.admin_password = "";
         register.telephone = AES.decrypt(encryptTelephone, process.env.MYSQL_AES_KEY);
-=======
-	var admin_id = req.body.admin_id;
-	var email = req.body.email;
-	var password = req.body.password;
-	var name = req.body.name;
-	var telephone = req.body.telephone;
-
->>>>>>> main
 
 	try {
 			// 중복체크
@@ -338,7 +268,6 @@ router.post('/register', async(req, res, next)=>{
 	}
 });
 
-<<<<<<< HEAD
 // 동기 방식 로그아웃
 // 로그아웃과 세션 파기 작업이 완료된 후 리다이렉트 등의 동작을 하기 위해
 router.get('/logout', function(req, res, next){
@@ -350,11 +279,6 @@ router.get('/logout', function(req, res, next){
         req.session.destroy();
         res.redirect('/login');
     });
-=======
-router.get('/logout', (req, res) => {
-	req.session.isLoggedIn = false; 
-	res.redirect('/login');
->>>>>>> main
 });
 
 module.exports = router;

@@ -7,6 +7,8 @@ var logger = require('morgan');
 var expressLayouts = require('express-ejs-layouts');
 require('dotenv').config();
 const cors = require("cors");
+//일회성(휘발성) 데이터를 특정 페이지(뷰)에 전달하는 방식제공 플래시 패키지 참조
+var flash = require('connect-flash');
 
 
 // express기반 서버세션 관리 팩키지 참조하기 

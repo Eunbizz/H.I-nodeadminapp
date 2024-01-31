@@ -1,24 +1,3 @@
-<<<<<<< HEAD
-
-exports.isLoggedIn = (req, res, next) =>{
-    if (req.isAuthenticated()) {
-        // 사용자가 인증되어 있으면 다음 라우터로 이동
-        next();
-    } else {
-        // 인증되어 있지 않으면 로그인 페이지로 이동
-        res.redirect('/login');
-    }
-};
-
-exports.isNotLoggedIn = (req, res, next) =>{
-    if (!req.isAuthenticated()) {
-        // 사용자가 인증되어 있지 않으면 다음 라우터로 이동
-        next();
-    } else {
-        // 인증되어 있으면 메인 페이지로 이동
-        res.redirect('/');
-    }
-=======
 //사용자 로그인 여부를 체크하고 
 //미로그인 상태에서의 요청시 로그인 페이지로 이동처리시킨다.
 //반드시 로그인을 한 상태에서만 호출되어야하는 각종 라우팅메소드에서 설정해준다.
@@ -42,5 +21,4 @@ exports.isNotLoggedIn =(req, res, next)=>{
     }else{
         res.redirect('/'); // 로그인했던 안했던 모든 사용자가 볼수 있는 메인 페이지로 이동시킴.. 
     }   
->>>>>>> main
 }

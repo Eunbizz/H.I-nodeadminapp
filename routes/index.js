@@ -195,29 +195,12 @@ router.post('/register', async(req, res, next)=>{
 		msg: ""
 	}
 
-        // 단방향 암호화
-        var bcryptedPassword = await bcrypt.hash(password, 12);
-        // 양방향 암호화
-        var encryptTelephone = AES.encrypt(telephone, process.env.MYSQL_AES_KEY);
+	var admin_id = req.body.admin_id;
+	var email = req.body.email;
+	var password = req.body.password;
+	var name = req.body.name;
+	var telephone = req.body.telephone;
 
-        var admins = {
-            company_code: "1",
-            admin_id: admin_id,
-            admin_password: bcryptedPassword,
-            admin_name: name,
-            email: email,
-            telephone: encryptTelephone,
-            dept_name:"관리부",
-            used_yn_code: "1",
-            reg_date: Date.now()
-        };
-        
-        var register = await db.Admin.create(admins);
-
-        var resultMsg = '';
-        
-        register.admin_password = "";
-        register.telephone = AES.decrypt(encryptTelephone, process.env.MYSQL_AES_KEY);
 
 	try {
 			// 중복체크
